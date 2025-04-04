@@ -1,0 +1,51 @@
+<html>
+
+<head>
+    <title>Sortable Person List</title>
+</head>
+
+<body>
+    <h1>Person List</h1>
+
+    <!-- Button to Insert Random Data -->
+    <a href="{% url 'insert' %}"><button>Insert Random Data</button></a>
+
+    <!-- Filter Form -->
+    <form method="GET" action="">
+        <label for="name">Name:</label>
+        <input type="text" name="name" value="{{ request.GET.name|default:'' }}">
+
+        <label for="min_age">Min Age:</label>
+        <input type="number" name="min_age" value="{{ request.GET.min_age|default:'' }}">
+
+        <label for="max_age">Max Age:</label>
+        <input type="number" name="max_age" value="{{ request.GET.max_age|default:'' }}">
+
+        <label for="email">Email:</label>
+        <input type="text" name="email" value="{{ request.GET.email|default:'' }}">
+
+        <button type="submit">Filter</button>
+    </form>
+
+    <!-- Table to Display Data -->
+    <table border="1">
+        <tr>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Email</th>
+        </tr>
+        {% for person in persons %}
+        <tr>
+            <td>{{ person.name }}</td>
+            <td>{{ person.age }}</td>
+            <td>{{ person.email }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="3">No results found</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+
+</html>
